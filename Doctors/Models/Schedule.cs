@@ -7,9 +7,9 @@
         public string? Type { get; set; }
         public DateTime Date { get; set; }
         public string? Description { get; set; }
-        public object? DoctorScheduleTime { get; internal set; }
-        public object? DoctorScheduleType { get; internal set; }
-        public object? DoctorScheduleDate { get; internal set; }
-        public object? DoctorScheduleDescription { get; internal set; }
+        public string? DoctorScheduleTime { get; internal set; }
+        public string? DoctorScheduleType { get; internal set; }
+        public DateTime? DoctorScheduleDate { get; internal set; }
+        public string? DoctorScheduleDescription { get; internal set; }
     }
 }

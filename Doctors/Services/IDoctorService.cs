@@ -600,6 +600,410 @@ namespace Doctors.Services
             throw new NotImplementedException();
         }
     }
+    /*Permission Interface*/
+    public interface IPermissionService
+    {
+        IEnumerable<Permission> GetPermissions();
+        Permission GetPermissionById(int id);
+        void AddPermission(Permission permission);
+        void UpdatePermission(Permission updatedPermission);
+        void DeletePermission(int id);
+        IEnumerable<Permission> SearchPermissions(string searchTerm);
+
+        void SavePermission(Permission permission);
+        Permission EditPermission(int id, Permission editedPermission);
+    }
+    public class PermissionService : IPermissionService
+    {
+        private readonly List<Permission> _permissions; // Replace this with your actual data store
+
+        public PermissionService()
+        {
+            // Initialize the list or connect to your database
+            _permissions = new List<Permission>();
+        }
+
+        public IEnumerable<Permission> GetPermissions()
+        {
+            return _permissions;
+        }
+
+        public Permission GetPermissionById(int id)
+        {
+            return _permissions.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void AddPermission(Permission permission)
+        {
+            _permissions.Add(permission);
+        }
+
+        public void UpdatePermission(Permission updatedPermission)
+        {
+            var existingPermission = _permissions.FirstOrDefault(p => p.Id == updatedPermission.Id);
+            if (existingPermission != null)
+            {
+                // Update the properties of the existing permission
+                existingPermission.RoleId = updatedPermission.RoleId;
+                existingPermission.Title = updatedPermission.Title;
+                existingPermission.Module = updatedPermission.Module;
+                existingPermission.Description = updatedPermission.Description;
+                // Update other properties as needed
+            }
+        }
+
+        public void DeletePermission(int id)
+        {
+            var permissionToRemove = _permissions.FirstOrDefault(p => p.Id == id);
+            if (permissionToRemove != null)
+            {
+                _permissions.Remove(permissionToRemove);
+            }
+        }
+
+        public IEnumerable<Permission> SearchPermissions(string searchTerm)
+        {
+            return _permissions.Where(p => p.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void SavePermission(Permission permission)
+        {
+            if (permission.Id == 0)
+            {
+                // If the permission ID is 0, it's a new permission entry, so add it
+                AddPermission(permission);
+            }
+            else
+            {
+                // If the permission ID is not 0, it's an existing permission entry, so update it
+                UpdatePermission(permission);
+            }
+        }
+
+        public Permission EditPermission(int id, Permission editedPermission)
+        {
+            var existingPermission = _permissions.FirstOrDefault(p => p.Id == id);
+            if (existingPermission != null)
+            {
+                // Update the properties of the existing permission
+                existingPermission.RoleId = editedPermission.RoleId;
+                existingPermission.Title = editedPermission.Title;
+                existingPermission.Module = editedPermission.Module;
+                existingPermission.Description = editedPermission.Description;
+                // Update other properties as needed
+
+                return existingPermission;
+            }
+
+            return null; // Return null if the permission entry with the specified ID is not found
+        }
+    }
+    /*Patient Interface  for its Services*/
+    public interface IPatientService
+    {
+        IEnumerable<Patient> GetPatients();
+        Patient GetPatientById(int id);
+        void AddPatient(Patient patient);
+        void UpdatePatient(Patient updatedPatient);
+        void DeletePatient(int id);
+        IEnumerable<Patient> SearchPatients(string searchTerm);
+
+        void SavePatient(Patient patient);
+        Patient EditPatient(int id, Patient editedPatient);
+    }
+    public class PatientService : IPatientService
+    {
+        private readonly List<Patient> _patients; // Replace this with your actual data store
+
+        public PatientService()
+        {
+            // Initialize the list or connect to your database
+            _patients = new List<Patient>();
+        }
+
+        public IEnumerable<Patient> GetPatients()
+        {
+            return _patients;
+        }
+
+        public Patient GetPatientById(int id)
+        {
+            return _patients.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void AddPatient(Patient patient)
+        {
+            _patients.Add(patient);
+        }
+
+        public void UpdatePatient(Patient updatedPatient)
+        {
+            var existingPatient = _patients.FirstOrDefault(p => p.Id == updatedPatient.Id);
+            if (existingPatient != null)
+            {
+                // Update the properties of the existing patient
+                existingPatient.Name = updatedPatient.Name;
+                existingPatient.Mobile = updatedPatient.Mobile;
+                existingPatient.Address = updatedPatient.Address;
+                existingPatient.Email = updatedPatient.Email;
+                existingPatient.Password = updatedPatient.Password;
+                existingPatient.Username = updatedPatient.Username;
+                // Update other properties as needed
+            }
+        }
+
+        public void DeletePatient(int id)
+        {
+            var patientToRemove = _patients.FirstOrDefault(p => p.Id == id);
+            if (patientToRemove != null)
+            {
+                _patients.Remove(patientToRemove);
+            }
+        }
+
+        public IEnumerable<Patient> SearchPatients(string searchTerm)
+        {
+            return _patients.Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void SavePatient(Patient patient)
+        {
+            if (patient.Id == 0)
+            {
+                // If the patient ID is 0, it's a new patient entry, so add it
+                AddPatient(patient);
+            }
+            else
+            {
+                // If the patient ID is not 0, it's an existing patient entry, so update it
+                UpdatePatient(patient);
+            }
+        }
+
+        public Patient EditPatient(int id, Patient editedPatient)
+        {
+            var existingPatient = _patients.FirstOrDefault(p => p.Id == id);
+            if (existingPatient != null)
+            {
+                // Update the properties of the existing patient
+                existingPatient.Name = editedPatient.Name;
+                existingPatient.Mobile = editedPatient.Mobile;
+                existingPatient.Address = editedPatient.Address;
+                existingPatient.Email = editedPatient.Email;
+                existingPatient.Password = editedPatient.Password;
+                existingPatient.Username = editedPatient.Username;
+                // Update other properties as needed
+
+                return existingPatient;
+            }
+
+            return null; // Return null if the patient entry with the specified ID is not found
+        }
+    }
+    /*Role Interface  for its Services*/
+    public interface IRoleService
+    {
+        IEnumerable<Role> GetRoles();
+        Role GetRoleById(int id);
+        void AddRole(Role role);
+        void UpdateRole(Role updatedRole);
+        void DeleteRole(int id);
+        IEnumerable<Role> SearchRoles(string searchTerm);
+
+        void SaveRole(Role role);
+        Role EditRole(int id, Role editedRole);
+    }
+
+    public class RoleService : IRoleService
+    {
+        private readonly List<Role> _roles; // Replace this with your actual data store
+
+        public RoleService()
+        {
+            // Initialize the list or connect to your database
+            _roles = new List<Role>();
+        }
+
+        public IEnumerable<Role> GetRoles()
+        {
+            return _roles;
+        }
+
+        public Role GetRoleById(int id)
+        {
+            return _roles.FirstOrDefault(r => r.Id == id);
+        }
+
+        public void AddRole(Role role)
+        {
+            _roles.Add(role);
+        }
+
+        public void UpdateRole(Role updatedRole)
+        {
+            var existingRole = _roles.FirstOrDefault(r => r.Id == updatedRole.Id);
+            if (existingRole != null)
+            {
+                // Update the properties of the existing role
+                existingRole.Title = updatedRole.Title;
+                existingRole.Description = updatedRole.Description;
+                // Update other properties as needed
+            }
+        }
+
+        public void DeleteRole(int id)
+        {
+            var roleToRemove = _roles.FirstOrDefault(r => r.Id == id);
+            if (roleToRemove != null)
+            {
+                _roles.Remove(roleToRemove);
+            }
+        }
+
+        public IEnumerable<Role> SearchRoles(string searchTerm)
+        {
+            return _roles.Where(r => r.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void SaveRole(Role role)
+        {
+            if (role.Id == 0)
+            {
+                // If the role ID is 0, it's a new role entry, so add it
+                AddRole(role);
+            }
+            else
+            {
+                // If the role ID is not 0, it's an existing role entry, so update it
+                UpdateRole(role);
+            }
+        }
+
+        public Role EditRole(int id, Role editedRole)
+        {
+            var existingRole = _roles.FirstOrDefault(r => r.Id == id);
+            if (existingRole != null)
+            {
+                // Update the properties of the existing role
+                existingRole.Title = editedRole.Title;
+                existingRole.Description = editedRole.Description;
+                // Update other properties as needed
+
+                return existingRole;
+            }
+
+            return null; // Return null if the role entry with the specified ID is not found
+        }
+    }
+    public interface IUserService
+    {
+        IEnumerable<User> GetUsers();
+        User GetUserById(int id);
+        void AddUser(User user);
+        void UpdateUser(User updatedUser);
+        void DeleteUser(int id);
+        IEnumerable<User> SearchUsers(string searchTerm);
+
+        void SaveUser(User user);
+        User EditUser(int id, User editedUser);
+    }
+    /*User Interface  for its Services*/
+    public class UserService : IUserService
+    {
+        private readonly List<User> _users; // Replace this with your actual data store
+
+        public UserService()
+        {
+            // Initialize the list or connect to your database
+            _users = new List<User>();
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            return _users;
+        }
+
+        public User GetUserById(int id)
+        {
+            return _users.FirstOrDefault(u => u.Id == id);
+        }
+
+        public void AddUser(User user)
+        {
+            _users.Add(user);
+        }
+
+        public void UpdateUser(User updatedUser)
+        {
+            var existingUser = _users.FirstOrDefault(u => u.Id == updatedUser.Id);
+            if (existingUser != null)
+            {
+                // Update the properties of the existing user
+                existingUser.RoleId = updatedUser.RoleId;
+                existingUser.Name = updatedUser.Name;
+                existingUser.Email = updatedUser.Email;
+                existingUser.Date = updatedUser.Date;
+                existingUser.Address = updatedUser.Address;
+                // Update other properties as needed
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+            var userToRemove = _users.FirstOrDefault(u => u.Id == id);
+            if (userToRemove != null)
+            {
+                _users.Remove(userToRemove);
+            }
+        }
+
+        public IEnumerable<User> SearchUsers(string searchTerm)
+        {
+            return _users.Where(u => u.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void SaveUser(User user)
+        {
+            if (user.Id == 0)
+            {
+                // If the user ID is 0, it's a new user entry, so add it
+                AddUser(user);
+            }
+            else
+            {
+                // If the user ID is not 0, it's an existing user entry, so update it
+                UpdateUser(user);
+            }
+        }
+
+        public User EditUser(int id, User editedUser)
+        {
+            var existingUser = _users.FirstOrDefault(u => u.Id == id);
+            if (existingUser != null)
+            {
+                // Update the properties of the existing user
+                existingUser.RoleId = editedUser.RoleId;
+                existingUser.Name = editedUser.Name;
+                existingUser.Email = editedUser.Email;
+                existingUser.Date = editedUser.Date;
+                existingUser.Address = editedUser.Address;
+                // Update other properties as needed
+
+                return existingUser;
+            }
+
+            return null; // Return null if the user entry with the specified ID is not found
+        }
+    }
+
 }
 
- 
+
+
+
+
+
+
+
+
+

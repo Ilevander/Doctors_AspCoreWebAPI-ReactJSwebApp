@@ -9,11 +9,10 @@
         public string? Payment { get; set; }
         public string? Type { get; set; }
         public string? Description { get; set; }
-        public object? DoctorFeeAmount { get; internal set; }
-        public object? DoctorFeeTotal { get; internal set; }
-        public object? DoctorFeePayment { get; internal set; }
-        public object? DoctorFeeType { get; internal set; }
-        public object? DoctorFeeDescription { get; internal set; }
-        public object Name { get; internal set; }
+        public decimal? DoctorFeeAmount { get; internal set; }
+        public decimal? DoctorFeeTotal { get; internal set; }
+        public string? DoctorFeePayment { get; internal set; }
+        public string? DoctorFeeType { get; internal set; }
+        public string? DoctorFeeDescription { get; internal set; }
     }
 }
