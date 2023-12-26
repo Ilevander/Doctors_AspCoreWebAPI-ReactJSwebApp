@@ -1,4 +1,8 @@
-﻿using Doctors.Services;
+﻿using Doctors.Data;
+using Doctors.Services;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 /*AddSingleton:
 ==============
 The service is created once and reused for the entire lifetime of the application.
@@ -30,10 +34,18 @@ namespace Doctors
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         //Here we register  all services configuration
         //Register services with the dependency injection (DI) container
         public void ConfigureServices(IServiceCollection services)
         {
+
             // Doctor Service Configuration
             services.AddScoped<IDoctorService, DoctorService>(); // Assuming DoctorService has per-request state or initialization
 
@@ -66,7 +78,12 @@ namespace Doctors
 
             // Add MVC for API controllers
             services.AddControllers();
-        }
+            // Get the connection string from appsettings.json
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            // Configure Entity Framework
 
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
     }
 }
