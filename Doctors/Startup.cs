@@ -16,9 +16,10 @@ A new instance is created every time the service is requested.
 It is suitable for lightweight, stateless services that are quick to instantiate.
 
  */
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
  * Choosing Between AddSingleton, AddScoped, and AddTransient:
+ * ***********************************************************
 Singleton: Use it when the service instance can be shared across the entire application, and its state is not dependent on a specific request or user.
 
 Scoped: Use it when the service instance needs to be created once per request. This is useful for services that require per-request initialization or have per-request state.
