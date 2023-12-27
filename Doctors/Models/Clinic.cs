@@ -2,8 +2,8 @@
 {
     public class Clinic
     {
-        public int ClinicId { get; set; }
-        public int DoctorId { get; set; }
+        public string? ClinicId { get; set; }
+        public string? DoctorId { get; set; }
         public string? Name { get; set; }
         public string? Place { get; set; }
         public string? Type { get; set; }

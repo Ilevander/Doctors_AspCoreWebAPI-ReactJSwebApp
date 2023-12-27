@@ -1,8 +1,12 @@
-﻿namespace Doctors.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Doctors.Models
 {
+    //[Keyless] // Add this attribute to indicate that the entity is keyless
     public class Schedule
     {
-        public int DoctorScheduleId { get; set; }
+        [Key]
+        public string? DoctorScheduleId { get; set; }
         public DateTime Time { get; set; }
         public string? Type { get; set; }
         public DateTime Date { get; set; }

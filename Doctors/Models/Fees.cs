@@ -1,8 +1,10 @@
-﻿namespace Doctors.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Doctors.Models
 {
     public class Fees
     {
-        public int DoctorFeeId { get; set; }
+        public string? DoctorFeeId { get; set; }
         public int DoctorId { get; set; }
         public decimal Amount { get; set; }
         public decimal Total { get; set; }
@@ -14,5 +16,7 @@
         public string? DoctorFeePayment { get; internal set; }
         public string? DoctorFeeType { get; internal set; }
         public string? DoctorFeeDescription { get; internal set; }
+        [Key]
+        public string? FeeId { get; internal set; }
     }
 }

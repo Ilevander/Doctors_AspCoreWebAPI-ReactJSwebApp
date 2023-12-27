@@ -40,7 +40,7 @@ namespace Doctors.Services
 
         public Doctor GetDoctorById(int id)
         {
-            return _doctors.FirstOrDefault(d => d.DoctorId == id);
+            return _doctors.FirstOrDefault(d => d.DoctorId == id.ToString());
         }
 
         public void AddDoctor(Doctor doctor)
@@ -62,7 +62,7 @@ namespace Doctors.Services
 
         public void DeleteDoctor(int id)
         {
-            var doctorToRemove = _doctors.FirstOrDefault(d => d.DoctorId == id);
+            var doctorToRemove = _doctors.FirstOrDefault(d => d.DoctorId == id.ToString());
             if (doctorToRemove != null)
             {
                 _doctors.Remove(doctorToRemove);
@@ -75,7 +75,7 @@ namespace Doctors.Services
         }
         public void SaveDoctor(Doctor doctor)
         {
-            if (doctor.DoctorId == 0)
+            if (string.IsNullOrEmpty(doctor.DoctorId)) // like if id == 0 but is string typed
             {
                 // If the doctor ID is 0, it's a new doctor, so add it
                 AddDoctor(doctor);
@@ -88,7 +88,7 @@ namespace Doctors.Services
         }
         public Doctor EditDoctor(int id, Doctor editedDoctor)
         {
-            var existingDoctor = _doctors.FirstOrDefault(d => d.DoctorId == id);
+            var existingDoctor = _doctors.FirstOrDefault(d => d.DoctorId == id.ToString());
             if (existingDoctor != null)
             {
                 // Update the properties of the existing doctor
@@ -132,7 +132,7 @@ namespace Doctors.Services
 
         public Appointment GetAppointmentById(int id)
         {
-            return _appointments.FirstOrDefault(a => a.AppointmentId == id);
+            return _appointments.FirstOrDefault(a => a.AppointmentId == id.ToString());
         }
 
         public void AddAppointment(Appointment appointment)
@@ -154,7 +154,7 @@ namespace Doctors.Services
 
         public void DeleteAppointment(int id)
         {
-            var appointmentToRemove = _appointments.FirstOrDefault(a => a.AppointmentId == id);
+            var appointmentToRemove = _appointments.FirstOrDefault(a => a.AppointmentId == id.ToString());
             if (appointmentToRemove != null)
             {
                 _appointments.Remove(appointmentToRemove);
@@ -167,7 +167,7 @@ namespace Doctors.Services
         }
         public void SaveAppointment(Appointment appointment)
         {
-            if (appointment.AppointmentId == 0)
+            if (string.IsNullOrEmpty(appointment.AppointmentId))
             {
                 // If the appointment ID is 0, it's a new appointment, so add it
                 AddAppointment(appointment);
@@ -180,7 +180,7 @@ namespace Doctors.Services
         }
         public Appointment EditAppointment(int id, Appointment editedAppointment)
         {
-            var existingAppointment = _appointments.FirstOrDefault(a => a.AppointmentId == id);
+            var existingAppointment = _appointments.FirstOrDefault(a => a.AppointmentId == id.ToString());
             if (existingAppointment != null)
             {
                 // Update the properties of the existing appointment
@@ -223,7 +223,7 @@ namespace Doctors.Services
 
         public Booking GetBookingById(int id)
         {
-            return _bookings.FirstOrDefault(b => b.BookingId == id);
+            return _bookings.FirstOrDefault(b => b.BookingId == id.ToString());
         }
 
         public void AddBooking(Booking booking)
@@ -247,7 +247,7 @@ namespace Doctors.Services
 
         public void DeleteBooking(int id)
         {
-            var bookingToRemove = _bookings.FirstOrDefault(b => b.BookingId == id);
+            var bookingToRemove = _bookings.FirstOrDefault(b => b.BookingId == id.ToString());
             if (bookingToRemove != null)
             {
                 _bookings.Remove(bookingToRemove);
@@ -260,7 +260,7 @@ namespace Doctors.Services
         }
         public void SaveBooking(Booking booking)
         {
-            if (booking.BookingId == 0)
+            if (string.IsNullOrEmpty(booking.BookingId))
             {
                 // If the booking ID is 0, it's a new booking, so add it
                 AddBooking(booking);
@@ -273,7 +273,7 @@ namespace Doctors.Services
         }
         public Booking EditBooking(int id, Booking editedBooking)
         {
-            var existingBooking = _bookings.FirstOrDefault(b => b.BookingId == id);
+            var existingBooking = _bookings.FirstOrDefault(b => b.BookingId == id.ToString());
             if (existingBooking != null)
             {
                 // Update the properties of the existing booking
@@ -303,7 +303,7 @@ namespace Doctors.Services
     }
     public class FeesService : IFeesService
     {
-        private readonly List<Fees> _fees; // Replace this with your actual data store
+        private readonly List<Fees> _fees; 
 
         public FeesService()
         {
@@ -318,7 +318,7 @@ namespace Doctors.Services
 
         public Fees GetFeesById(int id)
         {
-            return _fees.FirstOrDefault(f => f.DoctorFeeId == id);
+            return _fees.FirstOrDefault(f => f.DoctorFeeId == id.ToString());
         }
 
         public void AddFees(Fees fees)
@@ -343,7 +343,7 @@ namespace Doctors.Services
 
         public void DeleteFees(int id)
         {
-            var feesToRemove = _fees.FirstOrDefault(f => f.DoctorFeeId == id);
+            var feesToRemove = _fees.FirstOrDefault(f => f.DoctorFeeId == id.ToString());
             if (feesToRemove != null)
             {
                 _fees.Remove(feesToRemove);
@@ -357,7 +357,7 @@ namespace Doctors.Services
 
         public void SaveFees(Fees fees)
         {
-            if (fees.DoctorFeeId == 0)
+            if (string.IsNullOrEmpty(fees.DoctorFeeId))
             {
                 // If the fees ID is 0, it's a new fees entry, so add it
                 AddFees(fees);
@@ -371,7 +371,7 @@ namespace Doctors.Services
 
         public Fees EditFees(int id, Fees editedFees)
         {
-            var existingFees = _fees.FirstOrDefault(f => f.DoctorFeeId == id);
+            var existingFees = _fees.FirstOrDefault(f => f.DoctorFeeId == id.ToString());
             if (existingFees != null)
             {
                 // Update the properties of the existing fees
@@ -391,6 +391,16 @@ namespace Doctors.Services
         public IEnumerable<Fees> SearchFees(string searchTerm)
         {
             throw new NotImplementedException();
+        }
+        
+       
+        public void DeleteFees(string feeId)
+        {
+            var feeToRemove = _fees.FirstOrDefault(f => f.FeeId == feeId);
+            if (feeToRemove != null)
+            {
+                _fees.Remove(feeToRemove);
+            }
         }
     }
     /*Schedule Interface for its Services*/
@@ -423,7 +433,7 @@ namespace Doctors.Services
 
         public Schedule GetScheduleById(int id)
         {
-            return _schedules.FirstOrDefault(s => s.DoctorScheduleId == id);
+            return _schedules.FirstOrDefault(s => s.DoctorScheduleId == id.ToString());
         }
 
         public void AddSchedule(Schedule schedule)
@@ -447,7 +457,7 @@ namespace Doctors.Services
 
         public void DeleteSchedule(int id)
         {
-            var scheduleToRemove = _schedules.FirstOrDefault(s => s.DoctorScheduleId == id);
+            var scheduleToRemove = _schedules.FirstOrDefault(s => s.DoctorScheduleId == id.ToString());
             if (scheduleToRemove != null)
             {
                 _schedules.Remove(scheduleToRemove);
@@ -461,7 +471,7 @@ namespace Doctors.Services
 
         public void SaveSchedule(Schedule schedule)
         {
-            if (schedule.DoctorScheduleId == 0)
+            if (string.IsNullOrEmpty(schedule.DoctorScheduleId))
             {
                 // If the schedule ID is 0, it's a new schedule entry, so add it
                 AddSchedule(schedule);
@@ -475,7 +485,7 @@ namespace Doctors.Services
 
         public Schedule EditSchedule(int id, Schedule editedSchedule)
         {
-            var existingSchedule = _schedules.FirstOrDefault(s => s.DoctorScheduleId == id);
+            var existingSchedule = _schedules.FirstOrDefault(s => s.DoctorScheduleId == id.ToString());
             if (existingSchedule != null)
             {
                 // Update the properties of the existing schedule
@@ -527,7 +537,7 @@ namespace Doctors.Services
 
         public Clinic GetClinicById(int id)
         {
-            return _clinics.FirstOrDefault(c => c.ClinicId == id);
+            return _clinics.FirstOrDefault(c => c.ClinicId == id.ToString());
         }
 
         public void AddClinic(Clinic clinic)
@@ -551,7 +561,7 @@ namespace Doctors.Services
 
         public void DeleteClinic(int id)
         {
-            var clinicToRemove = _clinics.FirstOrDefault(c => c.ClinicId == id);
+            var clinicToRemove = _clinics.FirstOrDefault(c => c.ClinicId == id.ToString());
             if (clinicToRemove != null)
             {
                 _clinics.Remove(clinicToRemove);
@@ -565,7 +575,7 @@ namespace Doctors.Services
 
         public void SaveClinic(Clinic clinic)
         {
-            if (clinic.ClinicId == 0)
+            if (string.IsNullOrEmpty(clinic.ClinicId))
             {
                 // If the clinic ID is 0, it's a new clinic entry, so add it
                 AddClinic(clinic);
@@ -579,7 +589,7 @@ namespace Doctors.Services
 
         public Clinic EditClinic(int id, Clinic editedClinic)
         {
-            var existingClinic = _clinics.FirstOrDefault(c => c.ClinicId == id);
+            var existingClinic = _clinics.FirstOrDefault(c => c.ClinicId == id.ToString());
             if (existingClinic != null)
             {
                 // Update the properties of the existing clinic
@@ -630,7 +640,7 @@ namespace Doctors.Services
 
         public Permission GetPermissionById(int id)
         {
-            return _permissions.FirstOrDefault(p => p.Id == id);
+            return _permissions.FirstOrDefault(p => p.Id == id.ToString());
         }
 
         public void AddPermission(Permission permission)
@@ -654,7 +664,7 @@ namespace Doctors.Services
 
         public void DeletePermission(int id)
         {
-            var permissionToRemove = _permissions.FirstOrDefault(p => p.Id == id);
+            var permissionToRemove = _permissions.FirstOrDefault(p => p.Id == id.ToString());
             if (permissionToRemove != null)
             {
                 _permissions.Remove(permissionToRemove);
@@ -668,7 +678,7 @@ namespace Doctors.Services
 
         public void SavePermission(Permission permission)
         {
-            if (permission.Id == 0)
+            if (string.IsNullOrEmpty(permission.Id))
             {
                 // If the permission ID is 0, it's a new permission entry, so add it
                 AddPermission(permission);
@@ -682,7 +692,7 @@ namespace Doctors.Services
 
         public Permission EditPermission(int id, Permission editedPermission)
         {
-            var existingPermission = _permissions.FirstOrDefault(p => p.Id == id);
+            var existingPermission = _permissions.FirstOrDefault(p => p.Id == id.ToString());
             if (existingPermission != null)
             {
                 // Update the properties of the existing permission
@@ -728,7 +738,7 @@ namespace Doctors.Services
 
         public Patient GetPatientById(int id)
         {
-            return _patients.FirstOrDefault(p => p.Id == id);
+            return _patients.FirstOrDefault(p => p.Id == id.ToString());
         }
 
         public void AddPatient(Patient patient)
@@ -754,7 +764,7 @@ namespace Doctors.Services
 
         public void DeletePatient(int id)
         {
-            var patientToRemove = _patients.FirstOrDefault(p => p.Id == id);
+            var patientToRemove = _patients.FirstOrDefault(p => p.Id == id.ToString());
             if (patientToRemove != null)
             {
                 _patients.Remove(patientToRemove);
@@ -768,7 +778,7 @@ namespace Doctors.Services
 
         public void SavePatient(Patient patient)
         {
-            if (patient.Id == 0)
+            if (string.IsNullOrEmpty(patient.Id))
             {
                 // If the patient ID is 0, it's a new patient entry, so add it
                 AddPatient(patient);
@@ -782,7 +792,7 @@ namespace Doctors.Services
 
         public Patient EditPatient(int id, Patient editedPatient)
         {
-            var existingPatient = _patients.FirstOrDefault(p => p.Id == id);
+            var existingPatient = _patients.FirstOrDefault(p => p.Id == id.ToString());
             if (existingPatient != null)
             {
                 // Update the properties of the existing patient
@@ -831,7 +841,7 @@ namespace Doctors.Services
 
         public Role GetRoleById(int id)
         {
-            return _roles.FirstOrDefault(r => r.Id == id);
+            return _roles.FirstOrDefault(r => r.Id == id.ToString());
         }
 
         public void AddRole(Role role)
@@ -853,7 +863,7 @@ namespace Doctors.Services
 
         public void DeleteRole(int id)
         {
-            var roleToRemove = _roles.FirstOrDefault(r => r.Id == id);
+            var roleToRemove = _roles.FirstOrDefault(r => r.Id == id.ToString());
             if (roleToRemove != null)
             {
                 _roles.Remove(roleToRemove);
@@ -867,7 +877,7 @@ namespace Doctors.Services
 
         public void SaveRole(Role role)
         {
-            if (role.Id == 0)
+            if (string.IsNullOrEmpty(role.Id))
             {
                 // If the role ID is 0, it's a new role entry, so add it
                 AddRole(role);
@@ -881,7 +891,7 @@ namespace Doctors.Services
 
         public Role EditRole(int id, Role editedRole)
         {
-            var existingRole = _roles.FirstOrDefault(r => r.Id == id);
+            var existingRole = _roles.FirstOrDefault(r => r.Id == id.ToString());
             if (existingRole != null)
             {
                 // Update the properties of the existing role
@@ -925,7 +935,7 @@ namespace Doctors.Services
 
         public User GetUserById(int id)
         {
-            return _users.FirstOrDefault(u => u.Id == id);
+            return _users.FirstOrDefault(u => u.Id == id.ToString());
         }
 
         public void AddUser(User user)
@@ -950,7 +960,7 @@ namespace Doctors.Services
 
         public void DeleteUser(int id)
         {
-            var userToRemove = _users.FirstOrDefault(u => u.Id == id);
+            var userToRemove = _users.FirstOrDefault(u => u.Id == id.ToString());
             if (userToRemove != null)
             {
                 _users.Remove(userToRemove);
@@ -964,7 +974,7 @@ namespace Doctors.Services
 
         public void SaveUser(User user)
         {
-            if (user.Id == 0)
+            if (string.IsNullOrEmpty(user.Id))
             {
                 // If the user ID is 0, it's a new user entry, so add it
                 AddUser(user);
@@ -978,7 +988,7 @@ namespace Doctors.Services
 
         public User EditUser(int id, User editedUser)
         {
-            var existingUser = _users.FirstOrDefault(u => u.Id == id);
+            var existingUser = _users.FirstOrDefault(u => u.Id == id.ToString());
             if (existingUser != null)
             {
                 // Update the properties of the existing user

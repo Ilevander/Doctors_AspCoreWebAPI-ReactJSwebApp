@@ -35,14 +35,14 @@ namespace Doctors.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFee([FromBody] Fees fee)
+        public IActionResult AddFees([FromBody] Fees fee)
         {
-            _feesService.AddFee(fee);
+            _feesService.AddFees(fee);
             return CreatedAtAction(nameof(GetFeesById), new { id = fee.DoctorFeeId }, fee);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateFee(int id, [FromBody] Fees updatedFee)
+        public IActionResult UpdateFees(int id, [FromBody] Fees updatedFee)
         {
             var fee = _feesService.GetFeesById(id);
             if (fee == null)
@@ -50,12 +50,12 @@ namespace Doctors.Controllers
                 return NotFound();
             }
 
-            _feesService.UpdateFee(updatedFee);
+            _feesService.UpdateFees(updatedFee);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteFee(int id)
+        public IActionResult DeleteFees(int id)
         {
             var fee = _feesService.GetFeesById(id);
             if (fee == null)
@@ -63,7 +63,7 @@ namespace Doctors.Controllers
                 return NotFound();
             }
 
-            _feesService.DeleteFee(id);
+            _feesService.DeleteFees(id);
             return NoContent();
         }
     }

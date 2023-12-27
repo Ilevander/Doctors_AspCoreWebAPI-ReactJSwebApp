@@ -9,7 +9,13 @@ namespace Doctors.Data
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Fees> Fees { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+         {
+            modelBuilder.Entity<Fees>().HasKey(f => f.FeeId);
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<Schedule> Schedules { get; set; }
+        
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
