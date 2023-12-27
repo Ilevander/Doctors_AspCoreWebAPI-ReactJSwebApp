@@ -12,6 +12,21 @@ namespace Doctors.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
             modelBuilder.Entity<Fees>().HasKey(f => f.FeeId);
+            modelBuilder.Entity<Fees>()
+           .Property(f => f.Amount)
+           .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Fees>()
+             .Property(f => f.DoctorFeeAmount)
+              .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Fees>()
+                .Property(f => f.DoctorFeeTotal)
+                .HasColumnType("decimal(18, 2)");
+
+            modelBuilder.Entity<Fees>()
+                .Property(f => f.Total)
+                .HasColumnType("decimal(18, 2)");
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Schedule> Schedules { get; set; }
