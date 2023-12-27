@@ -3,6 +3,7 @@ using Doctors.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 /*AddSingleton:
 ==============
 The service is created once and reused for the entire lifetime of the application.
@@ -84,6 +85,21 @@ namespace Doctors
 
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //Swagger service :)
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Name", Version = "v1" });
+            });
         }
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API Name v1");
+            });
+
+        }
+
     }
 }

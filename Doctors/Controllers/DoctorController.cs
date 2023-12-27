@@ -22,6 +22,7 @@ namespace Doctors.Controllers
             return Ok(doctors);
         }
 
+
         [HttpGet("{id}")]
         public IActionResult GetDoctorById(int id)
         {
